@@ -14,14 +14,25 @@
 
 <body>
     <div>
-        <p>El balance en XLM de la cuenta A es <span id="balance-a">...</span></p>
-        <p>El balance en XLM de la cuenta B es <span id="balance-b">...</span></p>
+        <div>
+            <p>Los balances del Emisor son...</p>
+            <ul id="issuer-balances">
+            </ul>
+            <p>Los balances del Distribuidor son...</p>
+            <ul id="distributor-balances">
+            </ul>
+        </div>
 
         <button id="load-balances">Cargar balances</button>
-        <button id="make-payment">Realizar pago</button>
+
+        <br />
+        <hr />
+
+        <button id="create-asset">Crear asset</button>
     </div>
 
-    <script type="text/javascript" src="realizar_pago.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="crear_asset.js"></script>
 </body>
 
 </html>
