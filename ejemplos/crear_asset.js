@@ -2,7 +2,7 @@
 const sdk = /** @type {import("stellar-sdk")} */ (window.StellarSdk);
 
 const { Keypair, Asset, Server, TransactionBuilder, Operation } = sdk;
-const servidor = new Server('https://horizon-testnet.stellar.org');
+const server = new Server('https://horizon-testnet.stellar.org');
 
 // esto nunca se hace!! es sólo de ejemplo. El frontend siempre crea transacciones SIN firmar.
 // Y luego se las envía a un servidor que tiene las llaves aseguradas para firmar.
@@ -14,8 +14,8 @@ const issuerKeyPair = sdk.Keypair.fromSecret("SD32R4XLF32SREPD3HJIWEQAKZ4XY7NS3J
 const distributorKeyPair = sdk.Keypair.fromSecret("SAA2NNI5BHVJNFN5QN6WO4OL7DSOTTQ6QECUUWM5223D2S5VWMIVV5UN");
 
 async function loadBalances() {
-    const issuerAccount = await servidor.loadAccount(issuerKeyPair.publicKey());
-    const distributorAccount = await servidor.loadAccount(distributorKeyPair.publicKey());
+    const issuerAccount = await server.loadAccount(issuerKeyPair.publicKey());
+    const distributorAccount = await server.loadAccount(distributorKeyPair.publicKey());
 
     const $issuerBalances = document.querySelector('#issuer-balances');
     const $distributorBalances = document.querySelector('#distributor-balances');
@@ -37,13 +37,13 @@ async function loadBalances() {
 }
 
 async function createAsset() {
-    const sourceAccount = await servidor.loadAccount(issuerKeyPair.publicKey());
+    const sourceAccount = await server.loadAccount(issuerKeyPair.publicKey());
     const randomAsset = createRandomAsset(issuerKeyPair.publicKey());
 
     console.log(randomAsset);
 
     const tx = new TransactionBuilder(sourceAccount, {
-        fee: await servidor.fetchBaseFee(),
+        fee: await server.fetchBaseFee(),
         networkPassphrase: "Test SDF Network ; September 2015",
     })
     // primero debemos crear confianza en el asset, el orden de las operaciones importa
@@ -70,7 +70,7 @@ async function createAsset() {
     tx.sign(issuerKeyPair);
 
     try {
-        const txResult = await servidor.submitTransaction(tx);
+        const txResult = await server.submitTransaction(tx);
         console.log(txResult);
         loadBalances();
     } catch (e) {

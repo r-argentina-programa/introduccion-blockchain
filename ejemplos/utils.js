@@ -13,6 +13,6 @@ function getAssetCanonicalNameFromBalance(balance){
  * @returns {import("stellar-sdk").Asset}
  */
 function createRandomAsset(issuer){
-    const codigoAleatorio = "TEST" + Math.floor(Math.random() * 1000).toString();
-    return new Asset(codigoAleatorio, issuer);
+    const randomCode = "TEST" + Math.floor(Math.random() * 1000).toString();
+    return new Asset(randomCode, issuer);
 }
